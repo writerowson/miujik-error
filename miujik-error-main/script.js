@@ -5,6 +5,10 @@ const elementById = (id) => {
 
 const handleSearch = () => {
   const keyword = elementById("keyword");
+  const artistContainer = elementById("artists");
+  artistContainer.innerHTML = ""
+  const albumContainer = elementById("albums");
+  albumContainer.innerHTML = ""
   const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${keyword.value}`;
   fetch(url)
     .then((res) => res.json())
@@ -15,7 +19,7 @@ const handleSearch = () => {
 const showArtists = ({ artists }) => {
   const artistContainer = elementById("artists");
   console.log(artistContainer)
-  artists.forEach((artist) => {
+  artists?.forEach((artist) => {
     const div = document.createElement("div");
     console.log(artist)
     div.classList.add("artist-card");
@@ -56,17 +60,17 @@ const showAlbum = (data) => {
     const div = document.createElement("div");
     div.classList.add("album");
     div.innerHTML = `
-    //       <div class="album-image-container">
-    //         <img
-    //           src="${album.strAlbumThumb}"
-    //           alt=""
-    //         />
-    //       </div>
-    //       <div class="album-name">
-    //         <h3>${album.strAlbum}</h3>
-    //       </div>
-    //     `;
+          <div class="album-image-container">
+            <img
+             src="${album.strAlbumThumb ? album.strAlbumThumb : 'https://images.macrumors.com/t/vMbr05RQ60tz7V_zS5UEO9SbGR0=/1600x900/smart/article-new/2018/05/apple-music-note.jpg'}"
+             alt=""/>
+         </div>
+         <div class="album-name">
+            <h3>${album.strAlbum}</h3>
+          </div>
+        `;
 
     albumContainer.appendChild(div);
+
   });
 };
